@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Service</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: gold;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* Header Styling */
+    header {
+      padding: 20px;
+      border-bottom: 2px solid gold;
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    /* Dropdown Section Styling */
+    .dropdowns {
+      margin: 30px auto;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .dropdown {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 18px;
+    }
+
+    select,
+    input[type="date"],
+    input[type="time"] {
+      font-size: 16px;
+      padding: 5px;
+      margin-left: 10px;
+      border-radius: 5px;
+      border: 1px solid gold;
+      background-color: black;
+      color: gold;
+      width: 200px;
+    }
+
+    select:focus,
+    input:focus {
+      outline: 2px solid gold;
+    }
+
+    /* Member List Styling */
+    #members-list {
+      margin-top: 10px;
+    }
+
+    .member {
+      display: inline-block;
+      margin: 5px 10px;
+      padding: 5px 10px;
+      border: 1px solid gold;
+      border-radius: 5px;
+      background-color: red; /* Default to offline */
+      color: white;
+      cursor: pointer;
+    }
+
+    .member:hover {
+      opacity: 0.8;
+    }
+
+    /* Submit Button Styling */
+    .submit-button {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: gold;
+      color: black;
+      font-size: 18px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: black;
+      color: gold;
+      border: 2px solid gold;
+    }
+
+    /* Footer Styling */
+    footer {
+      margin-top: 30px;
+      padding: 10px;
+      border-top: 2px solid gold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Public Service</h1>
+  </header>
+
+  <main>
+    <section class="dropdowns">
+      <div class="dropdown">
+        <label>Members:</label>
+        <div id="members-list">
+          <span class="member">Vishah</span>
+          <span class="member">Ajey</span>
+          <span class="member">Iyaabe</span>
+          <span class="member">Naaif</span>
+          <span class="member">Thoha</span>
+          <span class="member">Nasif</span>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <label for="activities">Activities:</label>
+        <select id="activities">
+          <option value="meeting">Meeting</option>
+          <option value="cleanup">Cleanup Drive</option>
+          <option value="workshop">Workshop</option>
+          <option value="charity">Charity Event</option>
+        </select>
+      </div>
+
+      <div class="date-time">
+        <label for="date">Date:</label>
+        <input type="date" id="date">
+        <label for="time">Time:</label>
+        <input type="time" id="time">
+      </div>
+
+      <div class="submit-button">
+        <button id="submit">Submit</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Public Service</p>
+  </footer>
+
+  <script>
+    // Select all member elements
+    const members = document.querySelectorAll('.member');
+
+    // Add click event listener to toggle online/offline status
+    members.forEach((member) => {
+      member.addEventListener('click', () => {
+        // Check the current background color and toggle it
+        if (member.style.backgroundColor === 'green') {
+          member.style.backgroundColor = 'red'; // Set to offline
+        } else {
+          member.style.backgroundColor = 'green'; // Set to online
+        }
+      });
+    });
+
+    // Handle the submit button
+    document.getElementById('submit').addEventListener('click', () => {
+      const selectedActivity = document.getElementById('activities').value;
+      const selectedDate = document.getElementById('date').value;
+      const selectedTime = document.getElementById('time').value;
+
+      // Get online members (those with green background)
+      const onlineMembers = Array.from(members).filter(
+        (member) => member.style.backgroundColor === 'green'
+      ).map((member) => member.textContent);
+
+      // Create a notification message
+      if (onlineMembers.length === 0 || !selectedDate || !selectedTime) {
+        alert("Please select at least one online member, a date, and a time.");
+      } else {
+        const message = `
+          Online Members: ${onlineMembers.join(', ')}
+          Activity: ${selectedActivity}
+          Date: ${selectedDate}
+          Time: ${selectedTime}
+        `;
+        alert("Submission Successful! \n" + message);
+      }
+    });
+  </script>
+</body>
+</html>
